@@ -12,14 +12,20 @@ btn.addEventListener("click", handleSubmit);
 function handleSubmit(e) {
   e.preventDefault();
   let fetchjson = {};
+
+  //Se valida los tipos de archivos permitidos
   if (
     file.value.split(".")[1] == "txt" ||
     file.value.split(".")[1] == "xml" ||
     file.value.split(".")[1] == "json"
   ) {
+
+    //Verifica que el archivo subido y a convertir sean de diferente extencion
     if (file.value.split(".")[1] != option.options[option.selectedIndex].text) {
       console.log(clave.value.length);
-      if (clave.value.length == 16) {
+
+      //Valida que la clave tenga 13 digitos
+      if (clave.value.length == 13) {
         fetchjson.tipo = file.value.split(".")[1];
         fetchjson.convertir_a = option.options[option.selectedIndex].text;
 
@@ -28,6 +34,8 @@ function handleSubmit(e) {
         let myFile = file.files[0];
         let reader = new FileReader();
         reader.readAsText(myFile);
+
+        //Se trata el archivo para cifrarlo
         reader.onload = function () {
           let strfile = reader.result;
           origen.value = reader.result;
@@ -37,11 +45,13 @@ function handleSubmit(e) {
           let s = strfile;
           let m;
           let newstrfile = strfile;
+
+          //crifrado de credit-card
           do {
             m = re.exec(s);
             if (m) {
               console.log(m);
-              let aux = strfile.substr(m.index, 16);
+              let aux = strfile.substr(m.index, 13);
               console.log(aux);
               let aux_cifrado = cifrado(aux, clave.value);
               console.log(aux_cifrado);
@@ -58,14 +68,14 @@ function handleSubmit(e) {
           request(fetchjson);
         };
       } else {
-        alert("la llave deben ser 16 numeros enteros sin espacios");
+        alert("La llave tiene que ser 13 números enteros sin espacios");
       }
     } else {
-      alert("valores iguales a convertir, ingrese un valor diferente");
+      alert("La extención del archivo seleccionado y a convertir son iguales, por favor seleccionar uno diferente");
     }
   } else {
     alert(
-      "Favor adjuntar la información solicitada para convertir los archivos"
+      "Por favor adjuntar el archivo a convertir"
     );
   }
 }
@@ -88,6 +98,8 @@ function request(data) {
       let s = response.result;
       let m;
       let newstrfile = response.result;
+
+      //decifrado de credit-card
       do {
         m = re.exec(s);
         if (m) {
@@ -103,6 +115,7 @@ function request(data) {
         }
       } while (m);
 
+      //muestra resultado en TARGET FILE y se le asigna nombre al archivo de descarga
       resultadof.value = newstrfile.toString();
       if (response.tipo == "xml") {
         dnl.classList.remove("d-none");
@@ -110,7 +123,7 @@ function request(data) {
           "href",
           "data:text/xml;charset=utf-8," + encodeURIComponent(newstrfile)
         );
-        dnl.setAttribute("download", "resultado.xml");
+        dnl.setAttribute("download", "archivo_final.xml");
       }
 
       if (response.tipo == "txt") {
@@ -119,7 +132,7 @@ function request(data) {
           "href",
           "data:text/plain;charset=utf-8," + encodeURIComponent(newstrfile)
         );
-        dnl.setAttribute("download", "resultado.txt");
+        dnl.setAttribute("download", "archivo_final.txt");
       }
 
       if (response.tipo == "json") {
@@ -128,7 +141,7 @@ function request(data) {
           "href",
           "data:text/json;charset=utf-8," + encodeURIComponent(newstrfile)
         );
-        dnl.setAttribute("download", "resultado.json");
+        dnl.setAttribute("download", "archivo_final.json");
       }
     });
 }

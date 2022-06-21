@@ -1,3 +1,0 @@
-"documento","primer-nombre","apellido","credit-card","tipo","telefono"
-"03991034-7","Jaime","Climaco","1010101010101010","Gold","22502550"
-"03991034-6","Jaime2","Climaco2","1010101010101011","Gold","22502551"

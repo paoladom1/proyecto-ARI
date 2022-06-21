@@ -1,7 +1,8 @@
-import convertidor from '../utils/txtToXML';
+import convertidor from '../utils/convertFile';
 
 async function handleXMl(req, res) {
-  //txt to xml
+  
+  //Pasa/convierte de txt a xml
   try {
     if (req.body.tipo == "txt" && req.body.convertir_a == "xml") {
       res
@@ -15,7 +16,7 @@ async function handleXMl(req, res) {
         });
     }
 
-    //xml to txt
+    //Pasa/convierte de xml to txt
     if (req.body.tipo == "xml" && req.body.convertir_a == "txt") {
       let resultado = await convertidor.convertFunctions.xmlToTxt(
         req.body.file,
@@ -25,7 +26,7 @@ async function handleXMl(req, res) {
       res.status(200).json({ result: resultado, tipo: "txt" });
     }
 
-    //txt to json
+    //Pasa/convierte de txt to json
     if (req.body.tipo == "txt" && req.body.convertir_a == "json") {
       let resultado = await convertidor.convertFunctions.TxtToJson(
         req.body.file,
@@ -34,7 +35,7 @@ async function handleXMl(req, res) {
       res.status(200).json({ result: resultado, tipo: "json" });
     }
 
-    //json to txt
+    //Pasa/convierte de json to txt
     if (req.body.tipo == "json" && req.body.convertir_a == "txt") {
       res
         .status(200)

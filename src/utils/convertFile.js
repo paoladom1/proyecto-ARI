@@ -2,6 +2,7 @@ import transform from "camaro";
 import json2csv from "json2csv";
 import csv from "csvtojson";
 
+//Formato de txt a xml
 function txtToXML(file, del) {
   console.log(file);
   const fileContents = file;
@@ -24,6 +25,7 @@ function txtToXML(file, del) {
   return xml;
 }
 
+//Formato de xml a txt
 async function xmlToTxt(file, del) {
   try {
     console.log(file);
@@ -56,6 +58,7 @@ async function xmlToTxt(file, del) {
   }
 }
 
+//Formato json a txt
 function JsonToTxt(file, del) {
   let csv = json2csv.parse(JSON.parse(file));
 
@@ -66,6 +69,7 @@ function JsonToTxt(file, del) {
   return csv;
 }
 
+//Formato de txt a json
 async function TxtToJson(file, del) {
   console.log(file);
   let header = file.split("\n")[0].split(";");
@@ -79,15 +83,9 @@ async function TxtToJson(file, del) {
   return JSON.stringify(res);
 }
 
-function XmlToJson(file) {}
-
-function JsonToXml(file) {}
-
 module.exports.convertFunctions = {
   txtToXML,
   xmlToTxt,
   JsonToTxt,
-  TxtToJson,
-  XmlToJson,
-  JsonToXml,
+  TxtToJson
 };

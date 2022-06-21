@@ -24,7 +24,7 @@ function cifrado(creditcard, key) {
 
   let cccodiado = [];
 
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 13; i++) {
     for (let j = 0; j < 10; j++) {
       if (ccarray[i] == coder[0][j]) {
         x = coder[0][j];
@@ -54,7 +54,7 @@ function decifrado(creditcardcoder, key) {
   }
 
   let ccdecoder = [];
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 13; i++) {
     for (let j = 0; j < 10; j++) {
       if (cccodiado[i] == coder[clave[i]][j]) {
         ccdecoder[i] = coder[0][j];
