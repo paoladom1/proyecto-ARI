@@ -1,0 +1,20 @@
+<clientes>
+<cliente>
+    <documento>03991034-7</documento>
+    <primer-nombre>Jaime</primer-nombre>
+    <apellido>Climaco</apellido>
+    <credit-card>2244668801335577</credit-card>
+    <tipo>Gold</tipo>
+    <telefono>22502550</telefono>
+</cliente>
+
+<cliente>
+    <documento>03991034-6</documento>
+    <primer-nombre>Jaime2</primer-nombre>
+    <apellido>Climaco2</apellido>
+    <credit-card>2244668801335578</credit-card>
+    <tipo>Gold</tipo>
+    <telefono>22502551</telefono>
+</cliente>
+
+</clientes>

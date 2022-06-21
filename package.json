@@ -1,0 +1,36 @@
+{
+  "name": "proyecto-ari",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && babel src --out-dir dist  --copy-files",
+    "start": "babel-node src/bin/www",
+    "start:dev": "nodemon --exec babel-node src/bin/www"
+  },
+  "dependencies": {
+    "bootstrap": "^5.0.1",
+    "camaro": "^6.1.0",
+    "cookie-parser": "~1.4.4",
+    "csvtojson": "^2.0.10",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jquery": "^3.6.0",
+    "json2csv": "^5.0.6",
+    "jwt-simple": "^0.5.6",
+    "morgan": "~1.9.1",
+    "pug": "^3.0.2",
+    "xml-csv": "^1.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
+    "@babel/node": "^7.18.5",
+    "@babel/plugin-proposal-class-properties": "^7.17.12",
+    "@babel/plugin-proposal-object-rest-spread": "^7.18.0",
+    "@babel/preset-env": "^7.18.2",
+    "nodemon": "^2.0.16",
+    "rimraf": "^3.0.2"
+  }
+}

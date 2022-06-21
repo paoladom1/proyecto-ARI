@@ -1,0 +1,18 @@
+[
+    {
+        "documento": "03991034-7",
+        "primer-nombre": "Jaime",
+        "apellido": "Climaco",
+        "credit-card": "1053467813334",
+        "tipo": "Gold",
+        "telefono": "22507878"
+    },
+    {
+        "documento": "01992635-1",
+        "primer-nombre": "Juan",
+        "apellido": "Perez",
+        "credit-card": "1053467877774",
+        "tipo": "Silver",
+        "telefono": "77556879"
+    }
+]
