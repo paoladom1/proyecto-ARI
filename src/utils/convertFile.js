@@ -2,8 +2,10 @@ import transform from "camaro";
 import json2csv from "json2csv";
 import csv from "csvtojson";
 
+import { cifrado, descifrado } from "./cifradoVigenere";
+
 //Formato de txt a xml
-function txtToXML(file, del) {
+function txtToXML(file, del, clave) {
   console.log(file);
   const fileContents = file;
   let csvData = fileContents.split("\n").map((row) => row.trim());
@@ -21,14 +23,37 @@ function txtToXML(file, del) {
     xml += "</cliente>\n\n";
   }
   xml += "</clientes>\n";
+
+  let re = /[0-9]{13}/g;
+  let s = xml;
+  let m;
+  let newstrfile = xml;
+
+  //crifrado de credit-card
+  do {
+    m = re.exec(s);
+    if (m) {
+      console.log(m);
+      let aux = xml.substr(m.index, 13);
+      console.log(aux);
+      let aux_cifrado = cifrado(aux, clave);
+      console.log(aux_cifrado);
+      let desc = descifrado(aux_cifrado, clave);
+      console.log(desc);
+      newstrfile = newstrfile.replace(aux, (macth) => {
+        return aux_cifrado;
+      });
+    }
+  } while (m);
+
   console.log(xml);
-  return xml;
+  return newstrfile;
 }
 
 //Formato de xml a txt
-async function xmlToTxt(file, del) {
+async function xmlToTxt(file, del, clave) {
   try {
-    console.log(file);
+    //console.log(file);
     const template = {
       data: [
         "//cliente",
@@ -44,14 +69,35 @@ async function xmlToTxt(file, del) {
     };
 
     let result = await transform.transform(file, template);
-    console.log(result);
+
     let csv = json2csv.parse(result.data);
     if (del != ",") {
       csv = csv.replace(",", del);
     }
 
-    console.log(csv);
-    return csv;
+    //console.log(csv);
+    //descifrado de credit-card
+    let re = /[0-9]{13}/g;
+    let s = csv;
+    let newstrfile = csv;
+    let m;
+
+    do {
+      m = re.exec(s);
+      if (m) {
+        //console.log(m);
+        let aux = csv.substr(m.index, 13);
+        //console.log(aux);
+
+        let desc = descifrado(aux, clave);
+        console.log("descifrado: " + desc);
+        newstrfile = newstrfile.replace(aux, (macth) => {
+          return desc;
+        });
+      }
+    } while (m);
+
+    return newstrfile;
   } catch (error) {
     console.log(error);
     return "";
@@ -87,5 +133,5 @@ module.exports.convertFunctions = {
   txtToXML,
   xmlToTxt,
   JsonToTxt,
-  TxtToJson
+  TxtToJson,
 };

@@ -23,6 +23,8 @@ function cifrado(creditcard, key) {
   }
 
   let cccodiado = [];
+  let x;
+  let y;
 
   for (let i = 0; i < 13; i++) {
     for (let j = 0; j < 10; j++) {
@@ -42,7 +44,7 @@ function cifrado(creditcard, key) {
   return cccodiado;
 }
 
-function decifrado(creditcardcoder, key) {
+function descifrado(creditcardcoder, key) {
   let cccodiado = creditcardcoder.split("");
   for (let i = 0; i < cccodiado.length; i++) {
     cccodiado[i] = parseInt(cccodiado[i]);
@@ -65,3 +67,5 @@ function decifrado(creditcardcoder, key) {
 
   return ccdecoder;
 }
+
+export { cifrado, descifrado, coder };

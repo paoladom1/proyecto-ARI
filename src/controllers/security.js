@@ -1,4 +1,5 @@
 import convertidor from '../utils/convertFile';
+import jwt from 'jsonwebtoken';
 
 async function handleXMl(req, res) {
   
@@ -10,7 +11,8 @@ async function handleXMl(req, res) {
         .json({
           result: convertidor.convertFunctions.txtToXML(
             req.body.file,
-            req.body.delimitador
+            req.body.delimitador,
+            req.body.clave
           ),
           tipo: "xml",
         });
@@ -20,7 +22,8 @@ async function handleXMl(req, res) {
     if (req.body.tipo == "xml" && req.body.convertir_a == "txt") {
       let resultado = await convertidor.convertFunctions.xmlToTxt(
         req.body.file,
-        req.body.delimitador
+        req.body.delimitador,
+        req.body.clave
       );
       console.log(resultado);
       res.status(200).json({ result: resultado, tipo: "txt" });
@@ -32,6 +35,8 @@ async function handleXMl(req, res) {
         req.body.file,
         req.body.delimitador
       );
+      const token = jwt.sign(resultado, 'secret');
+      console.log(token);
       res.status(200).json({ result: resultado, tipo: "json" });
     }
 
