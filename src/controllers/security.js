@@ -1,21 +1,17 @@
-import convertidor from '../utils/convertFile';
-import jwt from 'jsonwebtoken';
+import convertidor from "../utils/convertFile";
 
 async function handleXMl(req, res) {
-  
   //Pasa/convierte de txt a xml
   try {
     if (req.body.tipo == "txt" && req.body.convertir_a == "xml") {
-      res
-        .status(200)
-        .json({
-          result: convertidor.convertFunctions.txtToXML(
-            req.body.file,
-            req.body.delimitador,
-            req.body.clave
-          ),
-          tipo: "xml",
-        });
+      res.status(200).json({
+        result: convertidor.convertFunctions.txtToXML(
+          req.body.file,
+          req.body.delimitador,
+          req.body.clave
+        ),
+        tipo: "xml",
+      });
     }
 
     //Pasa/convierte de xml to txt
@@ -35,22 +31,19 @@ async function handleXMl(req, res) {
         req.body.file,
         req.body.delimitador
       );
-      const token = jwt.sign(resultado, 'secret');
-      console.log(token);
+
       res.status(200).json({ result: resultado, tipo: "json" });
     }
 
     //Pasa/convierte de json to txt
     if (req.body.tipo == "json" && req.body.convertir_a == "txt") {
-      res
-        .status(200)
-        .json({
-          result: convertidor.convertFunctions.JsonToTxt(
-            req.body.file,
-            req.body.delimitador
-          ),
-          tipo: "txt",
-        });
+      res.status(200).json({
+        result: convertidor.convertFunctions.JsonToTxt(
+          req.body.file,
+          req.body.delimitador
+        ),
+        tipo: "txt",
+      });
     }
   } catch (error) {
     console.log(error);

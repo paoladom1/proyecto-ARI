@@ -1,6 +1,7 @@
 import transform from "camaro";
 import json2csv from "json2csv";
 import csv from "csvtojson";
+import jwt from "jsonwebtoken";
 
 import { cifrado, descifrado } from "./cifradoVigenere";
 
@@ -46,7 +47,6 @@ function txtToXML(file, del, clave) {
     }
   } while (m);
 
-  console.log(xml);
   return newstrfile;
 }
 
@@ -75,7 +75,6 @@ async function xmlToTxt(file, del, clave) {
       csv = csv.replace(",", del);
     }
 
-    //console.log(csv);
     //descifrado de credit-card
     let re = /[0-9]{13}/g;
     let s = csv;
@@ -85,12 +84,9 @@ async function xmlToTxt(file, del, clave) {
     do {
       m = re.exec(s);
       if (m) {
-        //console.log(m);
         let aux = csv.substr(m.index, 13);
-        //console.log(aux);
-
         let desc = descifrado(aux, clave);
-        console.log("descifrado: " + desc);
+
         newstrfile = newstrfile.replace(aux, (macth) => {
           return desc;
         });
@@ -117,7 +113,6 @@ function JsonToTxt(file, del) {
 
 //Formato de txt a json
 async function TxtToJson(file, del) {
-  console.log(file);
   let header = file.split("\n")[0].split(";");
   // fs npm package
   let res = await csv({
@@ -125,8 +120,16 @@ async function TxtToJson(file, del) {
     headers: header,
     delimiter: del,
   }).fromString(file);
-  console.log(res);
-  return JSON.stringify(res);
+
+  // genera token
+  const token = jwt.sign(JSON.stringify(res), "secret");
+
+  console.log(token)
+  
+  // decodifica token
+  const decode = jwt.decode(token)
+
+  return JSON.stringify(decode);
 }
 
 module.exports.convertFunctions = {

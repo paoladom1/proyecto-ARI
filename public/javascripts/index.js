@@ -19,7 +19,7 @@ function handleSubmit(e) {
     file.value.split(".")[1] == "xml" ||
     file.value.split(".")[1] == "json"
   ) {
-    //Verifica que el archivo subido y a convertir sean de diferente extencion
+    //Verifica que el archivo subido y a convertir sean de diferente extension
     if (file.value.split(".")[1] != option.options[option.selectedIndex].text) {
       console.log(clave.value.length);
 
@@ -39,9 +39,8 @@ function handleSubmit(e) {
           let strfile = reader.result;
           origen.value = reader.result;
           fetchjson.file = strfile;
-          //console.log(fetchjson);
-          let newstrfile = strfile;
 
+          let newstrfile = strfile;
           fetchjson.file = newstrfile;
 
           request(fetchjson);
